@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://wheretoon.vercel.app"),
   title: {
-    default: "WhereToon — Cari & Lacak Manhwa Legal",
+    default: "WhereToon - Cari & Lacak Manhwa Legal",
     template: "%s | WhereToon",
   },
   description:
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "WhereToon",
-    title: "WhereToon — Cari & Lacak Manhwa Legal",
+    title: "WhereToon - Cari & Lacak Manhwa Legal",
     description:
       "Temukan manhwa di platform resmi dan lacak progres bacaanmu di satu tempat.",
   },
@@ -116,7 +116,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500">
             <p className="font-semibold text-slate-700">WhereToon</p>
             <p className="mt-1">
-              Agregator manhwa legal — kami tidak menyimpan konten berhak cipta.
+              Agregator manhwa legal - kami tidak menyimpan konten berhak cipta.
               Semua link membaca mengarah ke platform resmi (WEBTOON, Tappytoon).
               Dukung kreator dengan membaca di sumber resmi.
             </p>

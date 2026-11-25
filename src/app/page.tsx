@@ -39,7 +39,7 @@ export default function HomePage() {
           </h1>
           <p className="mt-3 max-w-xl text-emerald-50">
             WhereToon mengumpulkan link baca resmi dari WEBTOON, Tappytoon, dan
-            platform legal lainnya — plus tracker biar kamu nggak lupa sudah baca
+            platform legal lainnya - plus tracker biar kamu nggak lupa sudah baca
             sampai chapter berapa.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

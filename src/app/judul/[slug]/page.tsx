@@ -23,11 +23,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const title = getTitleBySlug(slug);
   if (!title) return { title: "Judul tidak ditemukan" };
-  const description = `${title.title} — ${title.synopsis} Baca legal di ${title.links
+  const description = `${title.title} - ${title.synopsis} Baca legal di ${title.links
     .map((l) => l.platform)
     .join(", ")}. Lacak progres bacaanmu di WhereToon.`;
   return {
-    title: `${title.title} — Baca Legal & Lacak Progres`,
+    title: `${title.title} - Baca Legal & Lacak Progres`,
     description,
     openGraph: {
       title: `${title.title} | WhereToon`,
@@ -119,7 +119,7 @@ export default async function TitleDetailPage({
         </h2>
         <p className="mb-4 text-sm text-slate-500">
           Link di bawah mengarah ke platform resmi. WhereToon tidak menyimpan
-          konten komik — silakan baca di sumber resminya untuk mendukung kreator.
+          konten komik - silakan baca di sumber resminya untuk mendukung kreator.
         </p>
         <ul className="space-y-3">
           {title.links.map((link) => (

@@ -46,6 +46,22 @@ const WEBTOON_ID = (path: string): ReadingLink => ({
   note: "Bahasa Indonesia, gratis, episode terbaru via Fast Pass",
 });
 
+const TAPPYTOON = (slug: string): ReadingLink => ({
+  platform: "Tappytoon",
+  url: `https://www.tappytoon.com/en/book/${slug}`,
+  language: "en",
+  access: "freemium",
+  note: "Gratis sebagian, sisanya berbayar",
+});
+
+const MANTA = (slug: string, seriesId: number): ReadingLink => ({
+  platform: "Manta",
+  url: `https://manta.net/en/series/${slug}?seriesId=${seriesId}`,
+  language: "en",
+  access: "subscription",
+  note: "Langganan Manta, beberapa episode gratis",
+});
+
 export const TITLES: Title[] = [
   {
     id: "tower-of-god",
@@ -76,7 +92,7 @@ export const TITLES: Title[] = [
     status: "ongoing",
     genres: ["Drama", "Aksi", "Sekolah"],
     synopsis:
-      "Daniel Park yang selalu dirundung tiba-tiba terbangun di tubuh kedua yang tampan dan sempurna. Ia pun menjalani dua kehidupan sekaligus — dan dunia memperlakukannya dengan cara yang sangat berbeda.",
+      "Daniel Park yang selalu dirundung tiba-tiba terbangun di tubuh kedua yang tampan dan sempurna. Ia pun menjalani dua kehidupan sekaligus - dan dunia memperlakukannya dengan cara yang sangat berbeda.",
     year: 2014,
     author: "Taejun Pak",
     episodes: 623,
@@ -164,7 +180,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Romansa", "Drama", "Sekolah"],
     synopsis:
-      "Jugyeong menguasai seni makeup dari video online dan berubah menjadi gadis tercantik di sekolah. Tapi rahasia wajah aslinya — dan cowok yang mengetahuinya — terus menghantuinya.",
+      "Jugyeong menguasai seni makeup dari video online dan berubah menjadi gadis tercantik di sekolah. Tapi rahasia wajah aslinya - dan cowok yang mengetahuinya - terus menghantuinya.",
     year: 2018,
     author: "Yaongyi",
     popular: true,
@@ -197,7 +213,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Horor", "Thriller", "Supernatural"],
     synopsis:
-      "Setelah kehilangan keluarganya, Cha Hyun-su pindah ke apartemen kumuh Green Home. Saat manusia berubah menjadi monster sesuai hasrat terdalam mereka, ia harus bertahan — meski tubuhnya sendiri mulai berubah.",
+      "Setelah kehilangan keluarganya, Cha Hyun-su pindah ke apartemen kumuh Green Home. Saat manusia berubah menjadi monster sesuai hasrat terdalam mereka, ia harus bertahan - meski tubuhnya sendiri mulai berubah.",
     year: 2017,
     author: "Carnby Kim",
     links: [WEBTOON_EN("thriller/sweethome/list?title_no=1285")],
@@ -238,7 +254,7 @@ export const TITLES: Title[] = [
     status: "ongoing",
     genres: ["Aksi", "Fantasi", "Bela Diri"],
     synopsis:
-      "Cheongmyeong, pendekar Sekte Bunga Plum, tewas mengalahkan pemimpin Kultus Iblis — lalu terbangun seratus tahun kemudian. Sektenya kini tinggal bayang-bayang, dan ia bersumpah mengembalikan kejayaannya.",
+      "Cheongmyeong, pendekar Sekte Bunga Plum, tewas mengalahkan pemimpin Kultus Iblis - lalu terbangun seratus tahun kemudian. Sektenya kini tinggal bayang-bayang, dan ia bersumpah mengembalikan kejayaannya.",
     year: 2021,
     author: "Biga",
     episodes: 190,
@@ -270,7 +286,7 @@ export const TITLES: Title[] = [
     status: "ongoing",
     genres: ["Fantasi", "Romansa", "Drama"],
     synopsis:
-      "Medea Solon kehilangan posisinya di sisi Putra Mahkota Eros. Demi merebut kembali takhtanya, ia rela melakukan apa pun — termasuk bertukar tubuh dengan rivalnya.",
+      "Medea Solon kehilangan posisinya di sisi Putra Mahkota Eros. Demi merebut kembali takhtanya, ia rela melakukan apa pun - termasuk bertukar tubuh dengan rivalnya.",
     year: 2020,
     author: "SAM",
     links: [WEBTOON_EN("fantasy/your-throne/list?title_no=2009")],
@@ -284,7 +300,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Fantasi", "Romansa", "Drama"],
     synopsis:
-      "Permaisuri Navier yang sempurna diceraikan suaminya demi selirnya. Jawabannya: menerima perceraian itu — dan menikah lagi dengan kaisar lain, sambil tetap menyandang gelarnya.",
+      "Permaisuri Navier yang sempurna diceraikan suaminya demi selirnya. Jawabannya: menerima perceraian itu - dan menikah lagi dengan kaisar lain, sambil tetap menyandang gelarnya.",
     year: 2019,
     author: "Alphatart",
     links: [WEBTOON_EN("fantasy/the-remarried-empress/list?title_no=2135")],
@@ -351,7 +367,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Romansa", "Fantasi", "Supernatural"],
     synopsis:
-      "Lyra, gadis biasa yang pemalu, tanpa sengaja jatuh ke dunia para siren. Terjerat kutukan, ia menemukan bahwa dunianya jauh lebih besar — dan lebih berbahaya — dari yang ia kira.",
+      "Lyra, gadis biasa yang pemalu, tanpa sengaja jatuh ke dunia para siren. Terjerat kutukan, ia menemukan bahwa dunianya jauh lebih besar - dan lebih berbahaya - dari yang ia kira.",
     year: 2016,
     author: "instantmiso",
     links: [WEBTOON_EN("romance/sirens-lament/list?title_no=632")],
@@ -364,7 +380,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Aksi", "Fantasi"],
     synopsis:
-      "Setelah 12 tahun terjebak di menara penuh monster, Hyeonu Kim akhirnya bebas — jauh lebih kuat dari siapa pun di Bumi. Kini ia memburu dalang di balik penjaranya.",
+      "Setelah 12 tahun terjebak di menara penuh monster, Hyeonu Kim akhirnya bebas - jauh lebih kuat dari siapa pun di Bumi. Kini ia memburu dalang di balik penjaranya.",
     year: 2020,
     links: [WEBTOON_EN("action/the-advanced-player-of-the-tutorial-tower/list?title_no=2409")],
   },
@@ -389,7 +405,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Aksi", "Fantasi", "Petualangan"],
     synopsis:
-      "Sung Jinwoo, hunter peringkat E terlemah, nyaris tewas di dungeon — lalu sebuah 'System' misterius memilihnya sebagai satu-satunya pemain. Dari titik terendah, ia mulai naik level tanpa batas.",
+      "Sung Jinwoo, hunter peringkat E terlemah, nyaris tewas di dungeon - lalu sebuah 'System' misterius memilihnya sebagai satu-satunya pemain. Dari titik terendah, ia mulai naik level tanpa batas.",
     year: 2018,
     author: "Chugong",
     popular: true,
@@ -399,7 +415,7 @@ export const TITLES: Title[] = [
         url: "https://www.tappytoon.com/book/187",
         language: "en",
         access: "freemium",
-        note: "Episode 0–3 gratis, sisanya berbayar",
+        note: "Episode 0-3 gratis, sisanya berbayar",
       },
     ],
   },
@@ -412,7 +428,7 @@ export const TITLES: Title[] = [
     status: "hiatus",
     genres: ["Fantasi", "Komedi", "Petualangan"],
     synopsis:
-      "Kim Roksu terbangun sebagai Cale Henituse, villain kecil dalam novel 'Birth of a Hero'. Berbekal ingatannya tentang jalan cerita, ia berusaha hidup mewah dan santai — tanpa dipukuli sang hero.",
+      "Kim Roksu terbangun sebagai Cale Henituse, villain kecil dalam novel 'Birth of a Hero'. Berbekal ingatannya tentang jalan cerita, ia berusaha hidup mewah dan santai - tanpa dipukuli sang hero.",
     year: 2019,
     author: "Yu Ryeo Han",
     links: [
@@ -434,7 +450,7 @@ export const TITLES: Title[] = [
     status: "hiatus",
     genres: ["Aksi", "Thriller", "Drama"],
     synopsis:
-      "Setelah delapan tahun menjadi tentara bayaran, Yu Ijin pulang ke Korea dan mencoba hidup normal sebagai siswa SMA. Tapi masa lalunya — dan orang-orang yang mengincarnya — tidak mau melepaskannya begitu saja.",
+      "Setelah delapan tahun menjadi tentara bayaran, Yu Ijin pulang ke Korea dan mencoba hidup normal sebagai siswa SMA. Tapi masa lalunya - dan orang-orang yang mengincarnya - tidak mau melepaskannya begitu saja.",
     year: 2020,
     author: "YC",
     episodes: 277,
@@ -467,7 +483,7 @@ export const TITLES: Title[] = [
     status: "ongoing",
     genres: ["Aksi", "Fantasi", "Sekolah"],
     synopsis:
-      "Setelah digigit serangga aneh, Jang Suchan mendapati tubuhnya berubah — ia bisa menumbuhkan sayap serangga. Kini ia terseret ke dunia rahasia para manusia serangga yang saling bertarung.",
+      "Setelah digigit serangga aneh, Jang Suchan mendapati tubuhnya berubah - ia bisa menumbuhkan sayap serangga. Kini ia terseret ke dunia rahasia para manusia serangga yang saling bertarung.",
     year: 2020,
     author: "Hyeong Eun",
     episodes: 228,
@@ -487,7 +503,7 @@ export const TITLES: Title[] = [
     status: "ongoing",
     genres: ["Aksi", "Komedi", "Sekolah"],
     synopsis:
-      "Gamin Yoon bercita-cita masuk universitas, tapi ia terjebak di sekolah terburuk yang penuh preman. Satu-satunya jalan: membentuk kelompok belajar — dan mempertahankannya dengan tinju.",
+      "Gamin Yoon bercita-cita masuk universitas, tapi ia terjebak di sekolah terburuk yang penuh preman. Satu-satunya jalan: membentuk kelompok belajar - dan mempertahankannya dengan tinju.",
     year: 2019,
     author: "Shin Hyungwook",
     episodes: 265,
@@ -523,7 +539,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Aksi", "Fantasi", "Petualangan"],
     synopsis:
-      "Jooheon dikhianati timnya dan mati — lalu terbangun sepuluh tahun di masa lalu, tepat sebelum makam-makam kuno bermunculan. Kali ini, ia yang akan menguasai semua reliknya.",
+      "Jooheon dikhianati timnya dan mati - lalu terbangun sepuluh tahun di masa lalu, tepat sebelum makam-makam kuno bermunculan. Kali ini, ia yang akan menguasai semua reliknya.",
     year: 2021,
     author: "Sanji Jiksong",
     episodes: 34,
@@ -576,7 +592,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Fantasi", "Drama", "Thriller"],
     synopsis:
-      "Dongtae, remaja yang selalu diremehkan, menemukan sebuah dadu misterius yang bisa mengubah penampilannya — dan hidupnya. Tapi setiap lemparan punya harga.",
+      "Dongtae, remaja yang selalu diremehkan, menemukan sebuah dadu misterius yang bisa mengubah penampilannya - dan hidupnya. Tapi setiap lemparan punya harga.",
     year: 2013,
     author: "Yunhyunseok",
     episodes: 17,
@@ -613,7 +629,7 @@ export const TITLES: Title[] = [
     status: "hiatus",
     genres: ["Aksi", "Fantasi", "Komedi"],
     synopsis:
-      "Kang Jinhyeok, satu-satunya pemain yang menamatkan game mustahil 'Tower of Trials', tiba-tiba masuk ke dalam game itu sendiri — dengan semua kekuatan level maksimalnya.",
+      "Kang Jinhyeok, satu-satunya pemain yang menamatkan game mustahil 'Tower of Trials', tiba-tiba masuk ke dalam game itu sendiri - dengan semua kekuatan level maksimalnya.",
     year: 2022,
     episodes: 4,
     updatedAt: "2022-02-25",
@@ -630,7 +646,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Aksi", "Fantasi", "Petualangan"],
     synopsis:
-      "Setelah 10.000 tahun terjebak di dunia lain, Dae-Ho kembali ke Bumi sebagai pemain terkuat. Tapi dunia yang ia tinggalkan sudah berubah — dan para dewa belum selesai dengannya.",
+      "Setelah 10.000 tahun terjebak di dunia lain, Dae-Ho kembali ke Bumi sebagai pemain terkuat. Tapi dunia yang ia tinggalkan sudah berubah - dan para dewa belum selesai dengannya.",
     year: 2020,
     episodes: 7,
     updatedAt: "2021-05-07",
@@ -664,7 +680,7 @@ export const TITLES: Title[] = [
     status: "completed",
     genres: ["Romansa", "Drama", "Sekolah"],
     synopsis:
-      "Empat musim, empat kisah cinta remaja yang saling terhubung — tentang patah hati, persahabatan, dan tumbuh dewasa di masa SMA.",
+      "Empat musim, empat kisah cinta remaja yang saling terhubung - tentang patah hati, persahabatan, dan tumbuh dewasa di masa SMA.",
     year: 2020,
     author: "HONGDUCK",
     episodes: 9,
@@ -673,6 +689,158 @@ export const TITLES: Title[] = [
       WEBTOON_ID("romance/youth-blossom/list?title_no=2363"),
       WEBTOON_EN("romance/seasonsofblossom/list?title_no=2509"),
     ],
+  },
+  {
+    id: "the-legend-of-the-northern-blade",
+    slug: "the-legend-of-the-northern-blade",
+    title: "The Legend of the Northern Blade",
+    altTitles: ["북검전기"],
+    type: "manhwa",
+    status: "completed",
+    genres: ["Aksi", "Fantasi", "Bela Diri"],
+    synopsis:
+      "Setelah Sekte Langit Utara dibubarkan dan ayahnya tewas, Moowon bersumpah membalas dendam pada Silent Night. Berbekal ilmu pedang warisan ayahnya, ia menapaki jalan berdarah menuju puncak dunia persilatan.",
+    year: 2019,
+    author: "Woo-Gak",
+    episodes: 202,
+    updatedAt: "2024-11-19",
+    popular: true,
+    links: [TAPPYTOON("legend-of-northern-blade")],
+  },
+  {
+    id: "the-villainess-turns-the-hourglass",
+    slug: "the-villainess-turns-the-hourglass",
+    title: "The Villainess Turns the Hourglass",
+    altTitles: ["악녀는 모래시계를 되돌린다"],
+    type: "manhwa",
+    status: "completed",
+    genres: ["Romansa", "Fantasi", "Drama"],
+    synopsis:
+      "Aria dieksekusi karena dijebak saudara tirinya, Mielle - lalu jam pasir misterius mengembalikannya ke masa lalu. Kali ini, ia akan membalas semua pengkhianatan itu dengan cara mereka sendiri.",
+    year: 2020,
+    author: "SANSOBEE",
+    episodes: 104,
+    updatedAt: "2022-05-20",
+    links: [TAPPYTOON("villainess-turns-hourglass")],
+  },
+  {
+    id: "the-golden-haired-summoner",
+    slug: "the-golden-haired-summoner",
+    title: "The Golden-Haired Summoner",
+    altTitles: ["금발의 정령사"],
+    type: "manhwa",
+    status: "completed",
+    genres: ["Fantasi", "Romansa", "Komedi"],
+    synopsis:
+      "Jinny tewas karena terlalu keras belajar, lalu terlahir kembali sebagai Geenie Crowell di dunia fantasi. Supaya tidak perlu bekerja keras lagi, ia memilih jadi summoner - biar para roh saja yang bekerja untuknya.",
+    year: 2019,
+    author: "Geulbi",
+    episodes: 109,
+    links: [TAPPYTOON("the-golden-haired-summoner")],
+  },
+  {
+    id: "the-broken-ring",
+    slug: "the-broken-ring",
+    title: "The Broken Ring",
+    altTitles: ["This Marriage Will Fail Anyway", "이 결혼은 어차피 망하게 되어 있다"],
+    type: "manhwa",
+    status: "ongoing",
+    genres: ["Romansa", "Fantasi", "Drama"],
+    synopsis:
+      "Inés kecil memilih Cárcel sebagai calon suaminya, dan pernikahan itu ditakdirkan gagal. Setelah dua kehidupan yang berakhir tragis, ia kembali ke masa lalu untuk mengubah akhir cerita mereka.",
+    year: 2022,
+    author: "CHACHA KIM",
+    episodes: 118,
+    links: [TAPPYTOON("the-broken-ring")],
+  },
+  {
+    id: "the-demonic-contract",
+    slug: "the-demonic-contract",
+    title: "The Demonic Contract",
+    type: "manhwa",
+    status: "ongoing",
+    genres: ["Fantasi", "Romansa", "Komedi"],
+    synopsis:
+      "Putri Marianne yang terkenal kejam menjual jiwanya demi balas dendam - tapi iblis yang muncul justru putri raja iblis yang polos dan ceroboh. Kini Yurisina memakai tubuh Marianne untuk menjalankan balas dendam itu.",
+    year: 2021,
+    links: [TAPPYTOON("the-demonic-contract")],
+  },
+  {
+    id: "hawar-in-the-winter-garden",
+    slug: "hawar-in-the-winter-garden",
+    title: "Hawar in the Winter Garden",
+    type: "manhwa",
+    status: "completed",
+    genres: ["Romansa", "Fantasi", "Drama"],
+    synopsis:
+      "Putri Canola tiba di negeri musim dingin Tripol untuk menikah, tapi sambutan hangat yang ia harapkan tak kunjung datang. Di tengah istana yang dingin, ia menemukan rahasia dan perasaan yang tak ia duga.",
+    year: 2023,
+    links: [TAPPYTOON("hawar-in-the-winter-garden")],
+  },
+  {
+    id: "solo-leveling-ragnarok",
+    slug: "solo-leveling-ragnarok",
+    title: "Solo Leveling: Ragnarok",
+    altTitles: ["나 혼자만 레벨업: 라그나로크"],
+    type: "manhwa",
+    status: "ongoing",
+    genres: ["Aksi", "Fantasi", "Petualangan"],
+    synopsis:
+      "Sung Suho, putra Sung Jinwoo, hanyalah mahasiswa biasa - sampai penglihatan aneh tentang monster dan gerbang mulai menghantuinya. Warisan sang ayah ternyata mengalir dalam darahnya.",
+    year: 2024,
+    author: "Daul",
+    episodes: 72,
+    updatedAt: "2026-11-21",
+    popular: true,
+    links: [TAPPYTOON("solo-leveling-ragnarok")],
+  },
+  {
+    id: "under-the-oak-tree",
+    slug: "under-the-oak-tree",
+    title: "Under the Oak Tree",
+    altTitles: ["상수리나무 아래"],
+    type: "manhwa",
+    status: "hiatus",
+    genres: ["Romansa", "Fantasi", "Drama"],
+    synopsis:
+      "Maximilian yang gagap dipaksa menikah dengan Sir Riftan, yang pergi berperang tepat setelah malam pernikahan mereka. Tiga tahun kemudian Riftan kembali - dan kali ini ia bertekad menjaga istrinya.",
+    year: 2021,
+    author: "Suji Kim",
+    episodes: 193,
+    updatedAt: "2026-10-17",
+    popular: true,
+    links: [MANTA("under-the-oak-tree", 1255)],
+  },
+  {
+    id: "disobey-the-duke-if-you-dare",
+    slug: "disobey-the-duke-if-you-dare",
+    title: "Disobey the Duke if You Dare",
+    type: "manhwa",
+    status: "completed",
+    genres: ["Romansa", "Fantasi", "Drama"],
+    synopsis:
+      "Setelah dua kali menjanda, Lily dipaksa ayahnya menikah ketiga kalinya dengan Duke yang dikabarkan monster perang. Tapi sang Duke ternyata pria yang baik - hanya saja ada satu rahasia di baliknya.",
+    year: 2022,
+    author: "Romance Machine K",
+    episodes: 97,
+    updatedAt: "2024-03-13",
+    links: [MANTA("disobey-the-duke-if-you-dare", 1789)],
+  },
+  {
+    id: "the-lady-and-the-beast",
+    slug: "the-lady-and-the-beast",
+    title: "The Lady and the Beast",
+    altTitles: ["그녀와 야수"],
+    type: "manhwa",
+    status: "completed",
+    genres: ["Romansa", "Fantasi", "Komedi"],
+    synopsis:
+      "Permaisuri legendaris Martina terlahir kembali sebagai Astina, putri keluarga miskin yang bangkrut. Demi menyelamatkan keluarganya, ia menikahi Grand Duke Theriod yang berwujud monster - dan menjinakkannya dengan satu ciuman.",
+    year: 2020,
+    author: "Hongseul",
+    episodes: 187,
+    updatedAt: "2026-08-13",
+    links: [MANTA("the-lady-and-the-beast", 2697)],
   },
 ];
 
