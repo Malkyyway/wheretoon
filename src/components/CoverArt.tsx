@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const PALETTE = [
   "from-emerald-500 to-teal-800",
   "from-sky-500 to-indigo-700",
@@ -30,10 +34,12 @@ function initials(title: string): string {
 export type CoverOverlay = "none" | "catalog" | "label";
 
 /**
- * Poster desain (tanpa hotlink gambar): gradien + garis diagonal + inisial
- * besar. Overlay "catalog" menambah chip MANHWA, chip platform, dan jumlah
- * chapter di atas poster (untuk kartu katalog). Overlay "label" menambah
- * judul di bawah poster (untuk kartu hero).
+ * Poster cover asli (self-hosted di public/covers/<slug>.jpg, diambil dari
+ * og:image halaman resmi tiap judul) dengan placeholder gradien + inisial
+ * besar sebagai FALLBACK kalau file cover gagal dimuat. Overlay "catalog"
+ * menambah chip MANHWA, chip platform, dan jumlah chapter di atas poster
+ * (untuk kartu katalog). Overlay "label" menambah judul di bawah poster
+ * (untuk kartu hero).
  */
 export default function CoverArt({
   slug,
@@ -42,6 +48,7 @@ export default function CoverArt({
   episodes,
   overlay = "none",
   size = "md",
+  loading = "lazy",
   className = "rounded-xl",
 }: {
   slug: string;
@@ -50,8 +57,11 @@ export default function CoverArt({
   episodes?: number;
   overlay?: CoverOverlay;
   size?: "sm" | "md" | "lg";
+  /** "lazy" default (katalog/detail/list); hero memakai "eager". */
+  loading?: "lazy" | "eager";
   className?: string;
 }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const initialSize =
     size === "lg"
       ? "text-[6rem] sm:text-[8rem]"
@@ -64,22 +74,36 @@ export default function CoverArt({
       role="img"
       aria-label={`Cover ${title}`}
     >
-      {/* garis diagonal halus */}
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(115deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 16px)",
-        }}
-      />
-      {/* inisial besar di tengah */}
-      <span
-        aria-hidden
-        className={`absolute inset-0 flex select-none items-center justify-center font-black tracking-tighter text-white/85 ${initialSize}`}
-      >
-        {initials(title)}
-      </span>
+      {imgFailed ? (
+        <>
+          {/* garis diagonal halus */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(115deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 16px)",
+            }}
+          />
+          {/* inisial besar di tengah */}
+          <span
+            aria-hidden
+            className={`absolute inset-0 flex select-none items-center justify-center font-black tracking-tighter text-white/85 ${initialSize}`}
+          >
+            {initials(title)}
+          </span>
+        </>
+      ) : (
+        <img
+          src={`/covers/${slug}.jpg`}
+          alt=""
+          aria-hidden
+          loading={loading}
+          draggable={false}
+          onError={() => setImgFailed(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
 
       {overlay === "catalog" && (
         <>

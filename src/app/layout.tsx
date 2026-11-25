@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   ],
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon-192.svg",
-    apple: "/icon-192.svg",
+    icon: "/logo-192.png",
+    apple: "/logo-192.png",
   },
   openGraph: {
     type: "website",
@@ -59,25 +59,30 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="id"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white text-slate-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <body className="flex min-h-full flex-col bg-white text-slate-900 dark:bg-[#0a0f0d] dark:text-zinc-100">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ThemeProvider>
           <Navbar />
 
           <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6">{children}</main>
 
-          <footer className="border-t border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0a0a0b]">
+          <footer className="border-t border-slate-200 bg-slate-50 dark:border-white/10 dark:bg-[#0c120f]">
             <div className="mx-auto max-w-7xl px-4 py-10">
               <div className="flex flex-col gap-8 md:flex-row md:justify-between">
                 <div className="max-w-md">
-                  <p className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
-                    Where
-                    <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
-                      Toon
-                    </span>
-                  </p>
+                  <div className="flex items-center gap-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logo.png" alt="Logo WhereToon" className="h-9 w-9 shrink-0" />
+                    <p className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
+                      Where
+                      <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+                        Toon
+                      </span>
+                    </p>
+                  </div>
                   <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-zinc-400">
                     WhereToon adalah agregator manhwa legal - kami tidak menyimpan
                     konten berhak cipta. Semua tautan baca mengarah ke platform
@@ -94,6 +99,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                       <li>
                         <Link href="/" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
                           Beranda
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/update-terbaru" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
+                          Update Terbaru
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/semua-judul" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
+                          Semua Judul
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/populer" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
+                          Populer
                         </Link>
                       </li>
                       <li>

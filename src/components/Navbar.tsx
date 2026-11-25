@@ -83,31 +83,8 @@ const THEME_OPTIONS: { value: ThemeChoice; label: string; icon: typeof SunIcon }
 
 function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 192 192" className={`${className} shrink-0`} role="img" aria-label="Logo WhereToon">
-      <defs>
-        <linearGradient
-          id="wtg-header"
-          x1="0"
-          y1="0"
-          x2="192"
-          y2="192"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0" stopColor="#10b981" />
-          <stop offset="1" stopColor="#0d9488" />
-        </linearGradient>
-      </defs>
-      <rect width="192" height="192" rx="44" fill="url(#wtg-header)" />
-      <path
-        d="M46 58 L66 134 L96 82 L126 134 L146 58"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="17"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M134 0 h22 v34 l-11 8 -11 -8 z" fill="#fbbf24" />
-    </svg>
+    /* eslint-disable-next-line @next/next/no-img-element */
+    <img src="/logo.png" alt="Logo WhereToon" className={`${className} shrink-0`} />
   );
 }
 
@@ -144,7 +121,7 @@ function ThemeMenu() {
             className="fixed inset-0 z-40 cursor-default"
             tabIndex={-1}
           />
-          <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl dark:border-white/10 dark:bg-zinc-900">
+          <div className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-xl dark:border-white/10 dark:bg-[#101713]">
             {THEME_OPTIONS.map((opt) => {
               const Icon = opt.icon;
               const active = choice === opt.value;
@@ -199,8 +176,8 @@ export default function Navbar() {
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/85">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0f0d]/85">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <LogoMark />
           <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
@@ -211,9 +188,29 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-2 flex shrink-0 items-center gap-1" aria-label="Navigasi utama">
+        {/* Baris kedua di layar kecil (bisa di-scroll horizontal);
+            sebaris dengan logo di layar besar. */}
+        <nav
+          className="order-3 -mx-1 flex w-full items-center gap-1 overflow-x-auto whitespace-nowrap px-1 pb-1 [scrollbar-width:none] lg:order-none lg:mx-0 lg:w-auto lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden"
+          aria-label="Navigasi utama"
+        >
           <Link href="/" className={linkClass(pathname === "/")}>
             Beranda
+          </Link>
+          <Link
+            href="/update-terbaru"
+            className={linkClass(pathname === "/update-terbaru")}
+          >
+            Update Terbaru
+          </Link>
+          <Link
+            href="/semua-judul"
+            className={linkClass(pathname === "/semua-judul")}
+          >
+            Semua Judul
+          </Link>
+          <Link href="/populer" className={linkClass(pathname === "/populer")}>
+            Populer
           </Link>
           <Link href="/list-saya" className={linkClass(pathname === "/list-saya")}>
             List Saya

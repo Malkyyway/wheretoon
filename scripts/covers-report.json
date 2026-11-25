@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "slug": "questism",
+      "status": "downloaded",
+      "path": "/home/hatch/workspace/wheretoon/public/covers/questism.jpg",
+      "width": 480,
+      "height": 623,
+      "bytes": 89696,
+      "platform": "WEBTOON",
+      "source": "https://swebtoon-phinf.pstatic.net/20250205_97/17387192845661YN7J_JPEG/3767.jpg"
+    },
+    {
+      "slug": "knight-run",
+      "status": "downloaded",
+      "path": "/home/hatch/workspace/wheretoon/public/covers/knight-run.jpg",
+      "width": 480,
+      "height": 623,
+      "bytes": 64149,
+      "platform": "WEBTOON",
+      "source": "https://swebtoon-phinf.pstatic.net/20250204_298/1738645830314ztVat_JPEG/67.jpg"
+    }
+  ],
+  "ok": 2,
+  "failed": [],
+  "total_bytes": 153845
+}

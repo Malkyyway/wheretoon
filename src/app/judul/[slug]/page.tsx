@@ -77,6 +77,34 @@ export default async function TitleDetailPage({
 
   return (
     <div>
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-slate-500 dark:text-zinc-400">
+          <li>
+            <Link
+              href="/"
+              className="hover:text-emerald-600 dark:hover:text-emerald-400"
+            >
+              Beranda
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li>
+            <Link
+              href="/#katalog"
+              className="hover:text-emerald-600 dark:hover:text-emerald-400"
+            >
+              Katalog
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li
+            aria-current="page"
+            className="font-semibold text-emerald-600 dark:text-emerald-400"
+          >
+            {title.title}
+          </li>
+        </ol>
+      </nav>
       <Link
         href="/"
         className="mb-5 inline-block text-sm font-medium text-emerald-600 hover:underline dark:text-emerald-400"

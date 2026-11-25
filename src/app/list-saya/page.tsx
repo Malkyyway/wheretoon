@@ -177,7 +177,7 @@ function ListRow({
               )
             }
             aria-label="Status baca"
-            className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-zinc-200 dark:[&>option]:bg-zinc-900"
+            className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-zinc-200 dark:[&>option]:bg-[#101713]"
           >
             {(Object.keys(STATUS_LABEL_ID) as ListStatus[]).map((s) => (
               <option key={s} value={s}>

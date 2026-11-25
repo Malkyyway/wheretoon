@@ -54,7 +54,7 @@ export default function SearchPalette({
         onClick={onClose}
         className="absolute inset-0 cursor-default bg-black/60 backdrop-blur-[2px]"
       />
-      <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#161617]">
+      <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#101713]">
         <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-3 dark:border-white/10">
           <svg
             viewBox="0 0 24 24"

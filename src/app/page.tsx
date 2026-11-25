@@ -10,7 +10,7 @@ import TitleCard from "@/components/TitleCard";
 import CoverArt from "@/components/CoverArt";
 import HomeBrowser from "@/components/HomeBrowser";
 
-const HERO_GENRES = ["Fantasi", "Aksi", "Bela Diri", "Thriller", "Romansa"];
+const HERO_GENRES = ["Fantasy", "Action", "Martial Arts", "Thriller", "Romance"];
 
 // Kartu hero: depan Solo Leveling, belakang kiri Omniscient Reader,
 // belakang kanan Tower of God (mengikuti screenshot referensi).
@@ -21,7 +21,7 @@ const HERO_SPOTLIGHT = [
 ];
 
 export default function HomePage() {
-  const popular = getPopularTitles();
+  const popular = getPopularTitles().slice(0, 12);
   const recent = getRecentlyUpdated(6);
   const genres = getAllGenres();
   const spotlight = HERO_SPOTLIGHT.map((s) => ({
@@ -30,9 +30,9 @@ export default function HomePage() {
   })).filter((s) => s.title);
 
   return (
-    <div className="space-y-12">
+    <div>
       <section
-        className="relative overflow-hidden rounded-3xl px-6 py-10 text-white sm:px-10 sm:py-14"
+        className="relative overflow-hidden rounded-3xl px-6 py-10 text-white shadow-[0_8px_24px_rgba(6,95,70,0.10),0_32px_64px_-24px_rgba(6,95,70,0.18)] sm:px-10 sm:py-14"
         style={{
           background:
             "linear-gradient(135deg, #064e3b 0%, #022c22 55%, #010f0b 100%)",
@@ -111,11 +111,12 @@ export default function HomePage() {
                 aria-label={title!.title}
                 className={`absolute w-[190px] transition-all duration-300 hover:z-30 hover:rotate-0 hover:scale-110 ${position}`}
               >
-                <span className="block overflow-hidden rounded-2xl shadow-2xl shadow-black/50 ring-1 ring-white/10">
+                <span className="block overflow-hidden rounded-2xl shadow-[0_16px_32px_-12px_rgba(2,44,34,0.5)] ring-1 ring-white/10">
                   <CoverArt
                     slug={slug}
                     title={title!.title}
                     overlay="label"
+                    loading="eager"
                     className="rounded-2xl"
                   />
                 </span>
@@ -125,7 +126,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="update-terbaru">
+      <section aria-labelledby="update-terbaru" className="mt-16">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <h2 id="update-terbaru" className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
@@ -136,7 +137,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link
-            href="#katalog"
+            href="/update-terbaru"
             className="shrink-0 text-sm font-semibold text-emerald-600 hover:underline dark:text-emerald-400"
           >
             Lihat semua →
@@ -149,7 +150,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-labelledby="populer">
+      <section aria-labelledby="populer" className="mt-20">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <h2 id="populer" className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
@@ -160,7 +161,7 @@ export default function HomePage() {
             </p>
           </div>
           <Link
-            href="#katalog"
+            href="/populer"
             className="shrink-0 text-sm font-semibold text-emerald-600 hover:underline dark:text-emerald-400"
           >
             Lihat semua →
@@ -173,7 +174,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <HomeBrowser titles={TITLES} genres={genres} />
+      <div className="mt-16">
+        <HomeBrowser titles={TITLES} genres={genres} />
+      </div>
     </div>
   );
 }

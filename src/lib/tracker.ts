@@ -69,8 +69,15 @@ export function getListSnapshot(): ReadingList {
   return cachedList;
 }
 
+/** Satu objek kosong yang dipakai bersama - lihat getListServerSnapshot. */
+const EMPTY_LIST: ReadingList = {};
+
 export function getListServerSnapshot(): ReadingList {
-  return {};
+  // Harus objek yang SAMA di setiap panggilan: React membandingkan referensi
+  // hasil getServerSnapshot antar render, dan object literal baru `{}` di tiap
+  // panggilan memicu warning "getServerSnapshot should be cached" + risiko
+  // loop render (terlihat di QuickAddButton saat `npm run dev`).
+  return EMPTY_LIST;
 }
 
 export function notifyListChanged(): void {
