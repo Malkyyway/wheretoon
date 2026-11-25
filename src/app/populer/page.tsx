@@ -8,7 +8,7 @@ import TitleCard from "@/components/TitleCard";
 export const metadata: Metadata = {
   title: { absolute: "Populer | WhereToon" },
   description:
-    "Judul manhwa paling banyak dibaca minggu ini di WhereToon, dengan tautan baca resmi dari WEBTOON, Tappytoon, dan Manta.",
+    "Judul komik paling banyak dibaca minggu ini di WhereToon, dengan tautan baca resmi dari WEBTOON, Tappytoon, dan Manta.",
 };
 
 type SearchParams = Promise<{

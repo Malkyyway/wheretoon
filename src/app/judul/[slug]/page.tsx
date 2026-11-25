@@ -12,6 +12,7 @@ import {
 import CoverArt from "@/components/CoverArt";
 import TitleCard from "@/components/TitleCard";
 import TrackerControls from "@/components/TrackerControls";
+import ShareButton from "@/components/ShareButton";
 
 export function generateStaticParams() {
   return TITLES.map((t) => ({ slug: t.slug }));
@@ -90,7 +91,7 @@ export default async function TitleDetailPage({
           <li aria-hidden>/</li>
           <li>
             <Link
-              href="/#katalog"
+              href="/semua-judul"
               className="hover:text-emerald-600 dark:hover:text-emerald-400"
             >
               Katalog
@@ -143,7 +144,7 @@ export default async function TitleDetailPage({
               {STATUS_LABEL[title.status]}
             </span>
             <span className="rounded-full border border-slate-300 px-2.5 py-1 text-xs font-bold uppercase text-slate-600 dark:border-white/15 dark:text-zinc-300">
-              Manhwa
+              Komik
             </span>
             {primaryLink && (
               <span className="rounded-full bg-slate-900 px-2.5 py-1 text-xs font-bold uppercase text-white dark:bg-white dark:text-black">
@@ -179,6 +180,10 @@ export default async function TitleDetailPage({
 
           <div className="mt-6">
             <TrackerControls slug={title.slug} primaryLink={primaryLink} />
+          </div>
+
+          <div className="mt-4">
+            <ShareButton title={title.title} slug={title.slug} />
           </div>
         </div>
       </article>

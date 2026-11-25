@@ -1,14 +1,13 @@
 import Link from "next/link";
 import {
   TITLES,
-  getAllGenres,
   getPopularTitles,
   getRecentlyUpdated,
   getTitleBySlug,
 } from "@/data/titles";
 import TitleCard from "@/components/TitleCard";
 import CoverArt from "@/components/CoverArt";
-import HomeBrowser from "@/components/HomeBrowser";
+import RandomButton from "@/components/RandomButton";
 
 const HERO_GENRES = ["Fantasy", "Action", "Martial Arts", "Thriller", "Romance"];
 
@@ -23,7 +22,6 @@ const HERO_SPOTLIGHT = [
 export default function HomePage() {
   const popular = getPopularTitles().slice(0, 12);
   const recent = getRecentlyUpdated(6);
-  const genres = getAllGenres();
   const spotlight = HERO_SPOTLIGHT.map((s) => ({
     ...s,
     title: getTitleBySlug(s.slug),
@@ -60,10 +58,10 @@ export default function HomePage() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-100">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Agregator Manhwa Legal
+              Agregator Komik Legal
             </span>
             <h1 className="mt-5 max-w-xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
-              Cari manhwa,{" "}
+              Cari komik,{" "}
               <span className="bg-gradient-to-r from-emerald-300 to-emerald-500 bg-clip-text text-transparent">
                 baca di tempat resmi.
               </span>
@@ -74,12 +72,12 @@ export default function HomePage() {
               sampai chapter berapa.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href="#katalog"
+              <Link
+                href="/semua-judul"
                 className="rounded-full bg-white px-5 py-2.5 text-sm font-bold text-emerald-950 shadow hover:bg-emerald-50"
               >
                 Jelajahi katalog →
-              </a>
+              </Link>
               <Link
                 href="/list-saya"
                 className="rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
@@ -94,12 +92,16 @@ export default function HomePage() {
               {HERO_GENRES.map((g) => (
                 <Link
                   key={g}
-                  href={`/?genre=${encodeURIComponent(g)}#katalog`}
+                  href={`/semua-judul?genre=${encodeURIComponent(g)}`}
                   className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white backdrop-blur hover:bg-white/20"
                 >
                   {g}
                 </Link>
               ))}
+              <RandomButton
+                slugs={TITLES.map((t) => t.slug)}
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-400/20 px-3.5 py-1.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-emerald-400/30"
+              />
             </div>
           </div>
 
@@ -174,9 +176,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mt-16">
-        <HomeBrowser titles={TITLES} genres={genres} />
-      </div>
     </div>
   );
 }

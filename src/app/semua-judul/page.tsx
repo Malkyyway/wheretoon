@@ -2,13 +2,14 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { TITLES, getAllGenres, type TitleStatus } from "@/data/titles";
 import { parsePageParam } from "@/lib/pagination";
-import type { StatusFilter } from "@/lib/filterTitles";
+import { parseSortParam, type StatusFilter } from "@/lib/filterTitles";
 import AllTitlesBrowser from "@/components/AllTitlesBrowser";
+import RandomButton from "@/components/RandomButton";
 
 export const metadata: Metadata = {
   title: { absolute: "Semua Judul | WhereToon" },
   description:
-    "Jelajahi semua judul manhwa di WhereToon dengan tautan baca resmi dari WEBTOON, Tappytoon, dan Manta. Cari berdasarkan judul atau penulis, lalu filter berdasarkan status dan genre.",
+    "Jelajahi semua judul komik di WhereToon dengan tautan baca resmi dari WEBTOON, Tappytoon, dan Manta. Cari berdasarkan judul atau penulis, lalu filter berdasarkan status dan genre.",
 };
 
 type SearchParams = Promise<{
@@ -23,10 +24,10 @@ const VALID_STATUSES: StatusFilter[] = [
 ];
 
 /**
- * Nilai awal filter + halaman dibaca dari URL di server (di dalam anak
- * Suspense, agar cangkang halaman tetap bisa di-prerender statis), jadi
- * tautan seperti /semua-judul?page=3 atau /semua-judul?q=solo langsung
- * menampilkan hasil yang benar di HTML awal, bukan hanya setelah
+ * Nilai awal filter + sortir + halaman dibaca dari URL di server (di dalam
+ * anak Suspense, agar cangkang halaman tetap bisa di-prerender statis),
+ * jadi tautan seperti /semua-judul?page=3 atau /semua-judul?sort=az
+ * langsung menampilkan hasil yang benar di HTML awal, bukan hanya setelah
  * hydration. Perubahan filter/halaman di sisi klien tetap disinkronkan
  * ke URL oleh AllTitlesBrowser.
  */
@@ -43,6 +44,8 @@ async function BrowserLoader({
     typeof params.genre === "string" ? params.genre : "Semua";
   const statusParam =
     typeof params.status === "string" ? params.status : "semua";
+  const sortParam =
+    typeof params.sort === "string" ? params.sort : undefined;
   return (
     <AllTitlesBrowser
       titles={TITLES}
@@ -56,6 +59,7 @@ async function BrowserLoader({
           ? (statusParam as TitleStatus | "semua")
           : "semua"
       }
+      initialSort={parseSortParam(sortParam)}
       initialPage={parsePageParam(params.page)}
     />
   );
@@ -69,13 +73,16 @@ export default function SemuaJudulPage({
   const genres = getAllGenres();
   return (
     <div>
-      <div className="mb-4">
-        <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          Semua Judul
-        </h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-zinc-400">
-          Katalog kurasi dengan tautan baca resmi - tanpa situs bajakan.
-        </p>
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Semua Judul
+          </h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-zinc-400">
+            Katalog kurasi dengan tautan baca resmi - tanpa situs bajakan.
+          </p>
+        </div>
+        <RandomButton slugs={TITLES.map((t) => t.slug)} />
       </div>
       <Suspense
         fallback={

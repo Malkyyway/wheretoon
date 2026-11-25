@@ -140,7 +140,11 @@ export default function SearchPalette({
 
         <div className="flex items-center justify-between border-t border-slate-200 px-4 py-2.5 text-xs text-slate-500 dark:border-white/10 dark:text-zinc-400">
           <Link
-            href="/#katalog"
+            href={
+              query.trim()
+                ? `/semua-judul?q=${encodeURIComponent(query.trim())}`
+                : "/semua-judul"
+            }
             onClick={onClose}
             className="font-semibold text-emerald-600 hover:underline dark:text-emerald-400"
           >

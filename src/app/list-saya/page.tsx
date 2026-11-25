@@ -18,6 +18,7 @@ import {
   type ReadingList,
 } from "@/lib/tracker";
 import CoverArt from "@/components/CoverArt";
+import Dropdown from "@/components/Dropdown";
 
 const STATUS_ORDER: ListStatus[] = ["reading", "plan", "completed"];
 
@@ -30,6 +31,15 @@ export default function ListSayaPage() {
 
   const entries = Object.values(list).sort((a, b) => b.updatedAt - a.updatedAt);
   const counts = countByStatus(list);
+  const totalChapters = entries.reduce((sum, e) => sum + (e.chapter || 0), 0);
+
+  const stats = [
+    { label: "Total judul", value: entries.length },
+    { label: "Lagi dibaca", value: counts.reading },
+    { label: "Selesai", value: counts.completed },
+    { label: "Mau dibaca", value: counts.plan },
+    { label: "Total chapter dibaca", value: totalChapters },
+  ];
 
   return (
     <div>
@@ -42,6 +52,27 @@ export default function ListSayaPage() {
           : `${counts.reading} lagi dibaca · ${counts.plan} mau dibaca · ${counts.completed} selesai`}{" "}
         Data tersimpan di browser ini (localStorage).
       </p>
+
+      {entries.length > 0 && (
+        <div
+          className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
+          aria-label="Statistik list bacaan"
+        >
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.04]"
+            >
+              <p className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                {s.value}
+              </p>
+              <p className="mt-0.5 text-xs font-medium text-slate-500 dark:text-zinc-400">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {entries.length === 0 ? (
         <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center dark:border-white/15 dark:bg-white/[0.02]">
@@ -167,24 +198,27 @@ function ListRow({
               +
             </button>
           </span>
-          <select
+          <Dropdown
             value={entry.status}
-            onChange={(e) =>
-              onUpdate(
-                upsertEntry(list, entry.slug, {
-                  status: e.target.value as ListStatus,
-                }),
-              )
+            options={(Object.keys(STATUS_LABEL_ID) as ListStatus[]).map(
+              (s) => ({ value: s, label: STATUS_LABEL_ID[s] }),
+            )}
+            onChange={(s) =>
+              onUpdate(upsertEntry(list, entry.slug, { status: s }))
             }
-            aria-label="Status baca"
-            className="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-zinc-200 dark:[&>option]:bg-[#101713]"
-          >
-            {(Object.keys(STATUS_LABEL_ID) as ListStatus[]).map((s) => (
-              <option key={s} value={s}>
-                {STATUS_LABEL_ID[s]}
-              </option>
-            ))}
-          </select>
+            ariaLabel="Status baca"
+            buttonClassName="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 dark:border-white/15 dark:bg-white/5 dark:text-zinc-200"
+          />
+          {title.links[0] && (
+            <a
+              href={title.links[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-full bg-emerald-500 px-3 py-1.5 text-xs font-bold text-black transition hover:bg-emerald-400"
+            >
+              Lanjutkan membaca ↗
+            </a>
+          )}
           <button
             type="button"
             onClick={() => onUpdate(removeEntry(list, entry.slug))}

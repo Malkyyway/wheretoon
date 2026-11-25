@@ -37,7 +37,7 @@ export type CoverOverlay = "none" | "catalog" | "label";
  * Poster cover asli (self-hosted di public/covers/<slug>.jpg, diambil dari
  * og:image halaman resmi tiap judul) dengan placeholder gradien + inisial
  * besar sebagai FALLBACK kalau file cover gagal dimuat. Overlay "catalog"
- * menambah chip MANHWA, chip platform, dan jumlah chapter di atas poster
+ * menambah chip KOMIK, chip platform, dan jumlah chapter di atas poster
  * (untuk kartu katalog). Overlay "label" menambah judul di bawah poster
  * (untuk kartu hero).
  */
@@ -108,7 +108,7 @@ export default function CoverArt({
       {overlay === "catalog" && (
         <>
           <span className="absolute left-2 top-2 rounded-md bg-black/40 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-            Manhwa
+            Komik
           </span>
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent px-2 pb-2 pt-8">
             <div className="flex items-center justify-between gap-2">

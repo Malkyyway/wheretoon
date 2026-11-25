@@ -3,7 +3,13 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { Title } from "@/data/titles";
-import { filterTitles, type StatusFilter } from "@/lib/filterTitles";
+import {
+  filterTitles,
+  parseSortParam,
+  sortTitles,
+  type SortKey,
+  type StatusFilter,
+} from "@/lib/filterTitles";
 import { buildPageHref, paginate, parsePageParam } from "@/lib/pagination";
 import CatalogFilters from "./CatalogFilters";
 import Pagination from "./Pagination";
@@ -16,10 +22,10 @@ const VALID_STATUSES: StatusFilter[] = [
   "hiatus",
 ];
 
-// Sinkronisasi query param URL (?q=, ?status=, ?genre=, ?page=) ke state
-// filter TANPA menahan render: komponen ini tidak merender apa-apa, jadi
-// fallback Suspense-nya (null) tidak menghilangkan konten dari HTML awal.
-// Pola yang sama dengan GenreSync di HomeBrowser.
+// Sinkronisasi query param URL (?q=, ?status=, ?genre=, ?sort=, ?page=)
+// ke state filter TANPA menahan render: komponen ini tidak merender
+// apa-apa, jadi fallback Suspense-nya (null) tidak menghilangkan konten
+// dari HTML awal.
 function UrlSync({
   genres,
   onSync,
@@ -29,6 +35,7 @@ function UrlSync({
     query: string;
     genre: string;
     status: StatusFilter;
+    sort: SortKey;
     page: number;
   }) => void;
 }) {
@@ -36,6 +43,7 @@ function UrlSync({
   const q = searchParams.get("q") ?? "";
   const genreParam = searchParams.get("genre") ?? "Semua";
   const statusParam = searchParams.get("status") ?? "semua";
+  const sortParam = searchParams.get("sort");
   const pageParam = searchParams.get("page");
   useEffect(() => {
     onSync({
@@ -46,9 +54,10 @@ function UrlSync({
       status: (VALID_STATUSES as string[]).includes(statusParam)
         ? (statusParam as StatusFilter)
         : "semua",
+      sort: parseSortParam(sortParam ?? undefined),
       page: parsePageParam(pageParam ?? undefined),
     });
-  }, [q, genreParam, statusParam, pageParam, genres, onSync]);
+  }, [q, genreParam, statusParam, sortParam, pageParam, genres, onSync]);
   return null;
 }
 
@@ -58,6 +67,7 @@ export default function AllTitlesBrowser({
   initialQuery = "",
   initialGenre = "Semua",
   initialStatus = "semua",
+  initialSort = "default",
   initialPage = 1,
 }: {
   titles: Title[];
@@ -65,6 +75,7 @@ export default function AllTitlesBrowser({
   initialQuery?: string;
   initialGenre?: string;
   initialStatus?: StatusFilter;
+  initialSort?: SortKey;
   initialPage?: number;
 }) {
   const router = useRouter();
@@ -72,6 +83,7 @@ export default function AllTitlesBrowser({
   const [query, setQuery] = useState(initialQuery);
   const [genre, setGenre] = useState(initialGenre);
   const [status, setStatus] = useState<StatusFilter>(initialStatus);
+  const [sort, setSort] = useState<SortKey>(initialSort);
   const [page, setPage] = useState(initialPage);
 
   // Terima nilai dari URL hanya bila berbeda, agar efek sinkronisasi
@@ -81,19 +93,21 @@ export default function AllTitlesBrowser({
       query: string;
       genre: string;
       status: StatusFilter;
+      sort: SortKey;
       page: number;
     }) => {
       setQuery((prev) => (prev === values.query ? prev : values.query));
       setGenre((prev) => (prev === values.genre ? prev : values.genre));
       setStatus((prev) => (prev === values.status ? prev : values.status));
+      setSort((prev) => (prev === values.sort ? prev : values.sort));
       setPage((prev) => (prev === values.page ? prev : values.page));
     },
     [],
   );
 
   const filtered = useMemo(
-    () => filterTitles(titles, { query, genre, status }),
-    [titles, query, genre, status],
+    () => sortTitles(filterTitles(titles, { query, genre, status }), sort),
+    [titles, query, genre, status, sort],
   );
   const { items, page: activePage, totalPages, total, start, end } =
     paginate(filtered, page);
@@ -104,21 +118,29 @@ export default function AllTitlesBrowser({
     if (query.trim() !== "") params.q = query.trim();
     if (status !== "semua") params.status = status;
     if (genre !== "Semua") params.genre = genre;
+    if (sort !== "default") params.sort = sort;
     return params;
-  }, [query, status, genre]);
+  }, [query, status, genre, sort]);
 
-  // Setiap perubahan filter kembali ke halaman 1 dan menulis filternya
-  // ke URL agar bisa di-refresh atau dibagikan.
-  const applyFilterChange = useCallback(
-    (next: { query: string; genre: string; status: StatusFilter }) => {
+  // Setiap perubahan filter/sortir kembali ke halaman 1 dan menulis
+  // filternya ke URL agar bisa di-refresh atau dibagikan.
+  const applyChange = useCallback(
+    (next: {
+      query: string;
+      genre: string;
+      status: StatusFilter;
+      sort: SortKey;
+    }) => {
       setQuery(next.query);
       setGenre(next.genre);
       setStatus(next.status);
+      setSort(next.sort);
       setPage(1);
       const params: Record<string, string> = {};
       if (next.query.trim() !== "") params.q = next.query.trim();
       if (next.status !== "semua") params.status = next.status;
       if (next.genre !== "Semua") params.genre = next.genre;
+      if (next.sort !== "default") params.sort = next.sort;
       router.replace(buildPageHref(pathname, 1, params), { scroll: false });
     },
     [router, pathname],
@@ -142,11 +164,13 @@ export default function AllTitlesBrowser({
 
       <CatalogFilters
         query={query}
-        onQueryChange={(q) => applyFilterChange({ query: q, genre, status })}
+        onQueryChange={(q) => applyChange({ query: q, genre, status, sort })}
         genre={genre}
-        onGenreChange={(g) => applyFilterChange({ query, genre: g, status })}
+        onGenreChange={(g) => applyChange({ query, genre: g, status, sort })}
         status={status}
-        onStatusChange={(s) => applyFilterChange({ query, genre, status: s })}
+        onStatusChange={(s) => applyChange({ query, genre, status: s, sort })}
+        sort={sort}
+        onSortChange={(s) => applyChange({ query, genre, status, sort: s })}
         genres={genres}
       />
 

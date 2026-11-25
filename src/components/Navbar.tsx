@@ -81,7 +81,7 @@ const THEME_OPTIONS: { value: ThemeChoice; label: string; icon: typeof SunIcon }
   { value: "system", label: "Sistem", icon: MonitorIcon },
 ];
 
-function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
+function LogoMark({ className = "h-14 w-14" }: { className?: string }) {
   return (
     /* eslint-disable-next-line @next/next/no-img-element */
     <img src="/logo.png" alt="Logo WhereToon" className={`${className} shrink-0`} />

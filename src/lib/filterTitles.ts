@@ -9,9 +9,8 @@ export interface TitleFilters {
 }
 
 /**
- * Logika filter katalog yang dipakai beranda (HomeBrowser) dan
- * /semua-judul (AllTitlesBrowser). Urutan hasil mengikuti urutan
- * katalog (TITLES), tanpa pengurutan tambahan.
+ * Logika filter katalog yang dipakai /semua-judul (AllTitlesBrowser).
+ * Urutan hasil mengikuti urutan katalog (TITLES), tanpa pengurutan tambahan.
  */
 export function filterTitles(
   titles: Title[],
@@ -27,4 +26,48 @@ export function filterTitles(
       .toLowerCase();
     return haystack.includes(q);
   });
+}
+
+/** Kunci sortir katalog, dibaca dari query param `?sort=`. */
+export type SortKey = "default" | "terbaru" | "az" | "chapter";
+
+export const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: "default", label: "Default" },
+  { value: "terbaru", label: "Terbaru" },
+  { value: "az", label: "A-Z" },
+  { value: "chapter", label: "Chapter terbanyak" },
+];
+
+/** Ubah nilai mentah `sort` dari URL menjadi kunci sortir yang valid. */
+export function parseSortParam(
+  value: string | string[] | undefined,
+): SortKey {
+  const raw = Array.isArray(value) ? value[0] : value;
+  if (raw === "terbaru" || raw === "az" || raw === "chapter") return raw;
+  return "default";
+}
+
+/**
+ * Urutkan judul sesuai kunci sortir. "default" mengembalikan urutan
+ * katalog apa adanya; "terbaru" menaruh judul tanpa updatedAt paling
+ * akhir; "chapter" menaruh judul tanpa episode count paling akhir.
+ * Tidak mengubah array masukan.
+ */
+export function sortTitles(titles: Title[], sort: SortKey): Title[] {
+  switch (sort) {
+    case "terbaru":
+      return [...titles].sort((a, b) =>
+        (b.updatedAt ?? "").localeCompare(a.updatedAt ?? ""),
+      );
+    case "az":
+      return [...titles].sort((a, b) =>
+        a.title.localeCompare(b.title, "id"),
+      );
+    case "chapter":
+      return [...titles].sort(
+        (a, b) => (b.episodes ?? -1) - (a.episodes ?? -1),
+      );
+    default:
+      return titles;
+  }
 }

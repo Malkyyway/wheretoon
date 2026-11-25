@@ -18,17 +18,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://wheretoon.vercel.app"),
   title: {
-    default: "WhereToon - Cari & Lacak Manhwa Legal",
+    default: "WhereToon - Cari & Lacak Komik Legal",
     template: "%s | WhereToon",
   },
   description:
-    "WhereToon membantu kamu menemukan manhwa di platform resmi (WEBTOON, Tappytoon, dan lainnya) dan melacak progres bacaanmu. Tanpa konten bajakan.",
+    "WhereToon membantu kamu menemukan komik di platform resmi (WEBTOON, Tappytoon, dan lainnya) dan melacak progres bacaanmu. Tanpa konten bajakan.",
   keywords: [
-    "manhwa",
-    "baca manhwa legal",
+    "komik",
+    "baca komik legal",
     "webtoon",
     "tappytoon",
-    "tracker manhwa",
+    "tracker komik",
     "wheretoon",
   ],
   manifest: "/manifest.json",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "WhereToon",
-    title: "WhereToon - Cari & Lacak Manhwa Legal",
+    title: "WhereToon - Cari & Lacak Komik Legal",
     description:
-      "Temukan manhwa di platform resmi dan lacak progres bacaanmu di satu tempat.",
+      "Temukan komik di platform resmi dan lacak progres bacaanmu di satu tempat.",
   },
 };
 
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 <div className="max-w-md">
                   <div className="flex items-center gap-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/logo.png" alt="Logo WhereToon" className="h-9 w-9 shrink-0" />
+                    <img src="/logo.png" alt="Logo WhereToon" className="h-14 w-14 shrink-0" />
                     <p className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
                       Where
                       <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
@@ -84,7 +84,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                     </p>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-zinc-400">
-                    WhereToon adalah agregator manhwa legal - kami tidak menyimpan
+                    WhereToon adalah agregator komik legal - kami tidak menyimpan
                     konten berhak cipta. Semua tautan baca mengarah ke platform
                     resmi (WEBTOON, Tappytoon, Manta). Dukung kreator dengan
                     membaca di sumber resmi.
@@ -117,11 +117,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/#katalog" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
-                          Katalog
-                        </Link>
-                      </li>
-                      <li>
                         <Link href="/list-saya" className="text-slate-600 hover:text-emerald-600 dark:text-zinc-300 dark:hover:text-emerald-400">
                           List Saya
                         </Link>
@@ -141,7 +136,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 </div>
               </div>
               <div className="mt-10 flex flex-col gap-2 border-t border-slate-200 pt-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:text-zinc-500">
-                <p>© 2026 WhereToon. Dibuat untuk pembaca manhwa Indonesia.</p>
+                <p>© 2026 WhereToon. Dibuat untuk pembaca komik Indonesia.</p>
                 <p>Semua judul dan merek adalah milik pemegang haknya.</p>
               </div>
             </div>

@@ -1,10 +1,22 @@
 "use client";
 
-import type { StatusFilter } from "@/lib/filterTitles";
+import Dropdown from "./Dropdown";
+import {
+  SORT_OPTIONS,
+  type SortKey,
+  type StatusFilter,
+} from "@/lib/filterTitles";
+
+const STATUS_OPTIONS: { value: StatusFilter; label: string }[] = [
+  { value: "semua", label: "Semua" },
+  { value: "ongoing", label: "Ongoing" },
+  { value: "completed", label: "Tamat" },
+  { value: "hiatus", label: "Hiatus" },
+];
 
 /**
  * Kotak filter katalog (pencarian + dropdown status + pil genre) yang
- * dipakai beranda (HomeBrowser) dan /semua-judul (AllTitlesBrowser).
+ * dipakai /semua-judul (AllTitlesBrowser).
  * Komponen terkontrol: state dipegang pemiliknya.
  */
 export default function CatalogFilters({
@@ -14,6 +26,8 @@ export default function CatalogFilters({
   onGenreChange,
   status,
   onStatusChange,
+  sort,
+  onSortChange,
   genres,
 }: {
   query: string;
@@ -22,6 +36,8 @@ export default function CatalogFilters({
   onGenreChange: (g: string) => void;
   status: StatusFilter;
   onStatusChange: (s: StatusFilter) => void;
+  sort: SortKey;
+  onSortChange: (s: SortKey) => void;
   genres: string[];
 }) {
   return (
@@ -49,19 +65,24 @@ export default function CatalogFilters({
             className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-100 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-zinc-500 dark:focus:border-emerald-400 dark:focus:ring-emerald-500/20"
           />
         </label>
-        <label className="flex shrink-0 items-center gap-2 text-sm font-medium text-slate-600 dark:text-zinc-300">
+        <span className="flex shrink-0 items-center gap-2 text-sm font-medium text-slate-600 dark:text-zinc-300">
           Status
-          <select
+          <Dropdown
             value={status}
-            onChange={(e) => onStatusChange(e.target.value as StatusFilter)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-teal-600 focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-white dark:[&>option]:bg-[#101713]"
-          >
-            <option value="semua">Semua</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="completed">Tamat</option>
-            <option value="hiatus">Hiatus</option>
-          </select>
-        </label>
+            options={STATUS_OPTIONS}
+            onChange={onStatusChange}
+            ariaLabel="Status"
+          />
+        </span>
+        <span className="flex shrink-0 items-center gap-2 text-sm font-medium text-slate-600 dark:text-zinc-300">
+          Urutkan
+          <Dropdown
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={onSortChange}
+            ariaLabel="Urutkan"
+          />
+        </span>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filter genre">
